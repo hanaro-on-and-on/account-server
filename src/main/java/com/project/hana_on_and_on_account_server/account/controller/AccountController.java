@@ -25,7 +25,6 @@ public class AccountController {
         List<AccountGetResponse> response = accountService.getUserAccountList(userId);
         return ResponseEntity.ok(response);
     }
-}
 
     @PostMapping("/account-debit")
     public ResponseEntity<Void> processAccountDebit (@RequestBody AccountDebitRequest accountDebitRequest){
