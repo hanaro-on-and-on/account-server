@@ -3,7 +3,6 @@ package com.project.hana_on_and_on_account_server.account.service;
 import com.project.hana_on_and_on_account_server.account.domain.Account;
 import com.project.hana_on_and_on_account_server.account.domain.AccountTransaction;
 import com.project.hana_on_and_on_account_server.account.domain.AccountTransactionType;
-import com.project.hana_on_and_on_account_server.account.exception.AccountInvalidException;
 import com.project.hana_on_and_on_account_server.account.exception.AccountNotFoundException;
 import com.project.hana_on_and_on_account_server.account.dto.AccountDebitRequest;
 import com.project.hana_on_and_on_account_server.account.repository.AccountRepository;
@@ -32,10 +31,6 @@ public class AccountService {
         Account receiverAccount = accountRepository.findByAccountNumber(accountDebitRequest.receiverAccountNumber())
                 .orElseThrow(AccountNotFoundException::new);
 
-        // sender 계좌 잔액이 부족할 경우 예외 처리
-        if(senderAccount.getBalance() < accountDebitRequest.amount()){
-            new AccountInvalidException();
-        }
 
         AccountTransaction senderAccountTransaction = AccountTransaction.builder()
                 .accountTransactionTypeCd(AccountTransactionType.TRANSFER.getProperty())
