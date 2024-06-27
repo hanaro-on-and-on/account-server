@@ -14,8 +14,8 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity<UserGetResponse> findById(@AuthenticationPrincipal Long userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserGetResponse> findById(@PathVariable Long userId) {
         UserGetResponse response = userService.findByUserId(userId);
         return ResponseEntity.ok(response);
     }

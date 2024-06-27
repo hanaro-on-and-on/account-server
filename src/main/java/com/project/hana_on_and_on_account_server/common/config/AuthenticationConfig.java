@@ -33,11 +33,9 @@ public class AuthenticationConfig {
             .authorizeHttpRequests((auth) ->
                 auth
                     //.requestMatchers("/api/v1/users/**").permitAll()
-                    .anyRequest().permitAll()   // TODO TEST 용 전체 허용
+                    .anyRequest().permitAll()
                     //.anyRequest().authenticated()
-            )
-            .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            );
 
         return http.build();
     }
