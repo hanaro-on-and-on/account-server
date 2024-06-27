@@ -27,9 +27,6 @@ public class AccountTransaction extends BaseEntity {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @Column(name = "account_payment_type_cd")
-    private String accountPaymentTypeCd;
-
     @Column(name = "account_transaction_type_cd")
     private String accountTransactionTypeCd;
 
@@ -42,24 +39,37 @@ public class AccountTransaction extends BaseEntity {
     @Column(name = "new_balance")
     private Long newBalance;
 
-    @Column(name = "target_nm")
-    private String targetNm;
+    // targetNm 대신 sender, reciever로 변경
+    @Column(name = "sender_nm")
+    private String senderNm;
+
+    @Column(name = "sender_account_number")
+    private String senderAccountNumber;
+
+    @Column(name = "receiver_nm")
+    private String receiverNm;
+
+    @Column(name = "receiver_account_number")
+    private String receiverAccountNumber;
 
     @Column(name = "description", length = 300)
     private String description;
 
     @Builder
-    public AccountTransaction(Account account, String accountPaymentTypeCd,
+    public AccountTransaction(Account account,
         String accountTransactionTypeCd, Long amount, Long oldBalance, Long newBalance,
-        String targetNm,
+        String senderNm, String senderAccountNumber,
+        String receiverNm, String receiverAccountNumber,
         String description) {
         this.account = account;
-        this.accountPaymentTypeCd = accountPaymentTypeCd;
         this.accountTransactionTypeCd = accountTransactionTypeCd;
         this.amount = amount;
         this.oldBalance = oldBalance;
         this.newBalance = newBalance;
-        this.targetNm = targetNm;
+        this.senderNm = senderNm;
+        this.senderAccountNumber = senderAccountNumber;
+        this.receiverNm = receiverNm;
+        this.receiverAccountNumber = receiverAccountNumber;
         this.description = description;
     }
 }

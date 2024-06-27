@@ -1,13 +1,11 @@
 package com.project.hana_on_and_on_account_server.account.controller;
 
+import com.project.hana_on_and_on_account_server.account.dto.AccountDebitRequest;
 import com.project.hana_on_and_on_account_server.account.dto.AccountGetResponse;
 import com.project.hana_on_and_on_account_server.account.service.AccountService;
-import com.project.hana_on_and_on_account_server.user.dto.UserLoginRequest;
-import com.project.hana_on_and_on_account_server.user.dto.UserLoginResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,5 +24,12 @@ public class AccountController {
     public ResponseEntity<List<AccountGetResponse>> getUserAccountList(@PathVariable Long userId) {
         List<AccountGetResponse> response = accountService.getUserAccountList(userId);
         return ResponseEntity.ok(response);
+    }
+}
+
+    @PostMapping("/account-debit")
+    public ResponseEntity<Void> processAccountDebit (@RequestBody AccountDebitRequest accountDebitRequest){
+        accountService.processAccountDebit(accountDebitRequest);
+        return ResponseEntity.noContent().build();
     }
 }
