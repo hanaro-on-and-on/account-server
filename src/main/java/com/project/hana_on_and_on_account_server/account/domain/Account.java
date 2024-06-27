@@ -1,5 +1,6 @@
 package com.project.hana_on_and_on_account_server.account.domain;
 
+import com.project.hana_on_and_on_account_server.account.domain.enumType.AccountType;
 import com.project.hana_on_and_on_account_server.common.domain.BaseEntity;
 import com.project.hana_on_and_on_account_server.common.exception.ValueInvalidException;
 import com.project.hana_on_and_on_account_server.user.domain.User;

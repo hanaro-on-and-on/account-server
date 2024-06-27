@@ -2,12 +2,13 @@ package com.project.hana_on_and_on_account_server.account.service;
 
 import com.project.hana_on_and_on_account_server.account.domain.Account;
 import com.project.hana_on_and_on_account_server.account.domain.AccountTransaction;
-import com.project.hana_on_and_on_account_server.account.domain.AccountTransactionType;
-import com.project.hana_on_and_on_account_server.account.exception.AccountNotFoundException;
+import com.project.hana_on_and_on_account_server.account.domain.enumType.AccountTransactionType;
 import com.project.hana_on_and_on_account_server.account.dto.AccountDebitRequest;
+import com.project.hana_on_and_on_account_server.account.dto.AccountGetResponse;
+import com.project.hana_on_and_on_account_server.account.exception.AccountNotFoundException;
 import com.project.hana_on_and_on_account_server.account.repository.AccountRepository;
 import com.project.hana_on_and_on_account_server.account.repository.AccountTransactionRepository;
-import com.project.hana_on_and_on_account_server.common.exception.ValueInvalidException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AccountService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
     private final AccountRepository accountRepository;
     private final AccountTransactionRepository accountTransactionRepository;
+
+    public List<AccountGetResponse> getUserAccountList(Long userId) {
+        List<Account> accountList = accountRepository.findByUserUserId(userId);
+        return accountList.stream().map(AccountGetResponse::fromEntity).toList();
+    }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processAccountDebit(AccountDebitRequest accountDebitRequest){
@@ -66,6 +71,4 @@ public class AccountService {
         accountTransactionRepository.save(senderAccountTransaction);
         accountTransactionRepository.save(receiverAccountTransaction);
     }
-
-
 }
