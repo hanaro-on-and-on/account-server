@@ -9,7 +9,8 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
-#CURRENT_PID=$(pgrep -f hana_on_and_on_channel_server-0.0.1-SNAPSHOT.jar)
+CURRENT_PID=$(lsof -ti :8080)
+#CURRENT_PID=$(pgrep -f hana_on_and_on_account_server-0.0.1-SNAPSHOT.jar)
 
 echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
 
@@ -39,4 +40,4 @@ sudo chown ec2-user $REPOSITORY/nohup.out
 
 echo "> $JAR_NAME 실행"
 nohup java -jar -Dspring.config.location=file:///home/ec2-user/app/step2/application.yml $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
-# java -jar hana_on_and_on_channel_server-0.0.1-SNAPSHOT.jar > /home/ec2-user/app/step2/nohup.out 2>&1 &
+# java -jar hana_on_and_on_account_server-0.0.1-SNAPSHOT.jar > /home/ec2-user/app/step2/nohup.out 2>&1 &
